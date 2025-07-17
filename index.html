@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos Unidas (Protótipo)</title>
+    <!-- Font Awesome para ícones de redes sociais -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+
+    <style>
+        /* Reset básico para consistência entre navegadores */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ca905abe; /* Fundo leve para o site */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cabeçalho (Header) */
+        header {
+            background-color: #ebcaab; /* Verde solidário */
+            color: #2c3e50;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+           
+        }
+        .header-logo {
+            max-width: 150px; /* Ajuste o tamanho da logo conforme necessário */
+            height: auto;
+            margin-bottom: 15px; /* Espaçamento abaixo da logo */
+            display: block; /* Para centralizar com margin auto */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .site-title {
+            font-size: 2.85em;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+    
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Espaço entre os itens do menu */
+        }
+
+        .main-nav a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Seções Principais */
+        .hero-section {
+            background-color: #f0decd; /* Azul claro para a seção 'Sobre' */
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-section h2 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-content {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .section-content h2 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        /* Linha de destaque para títulos de seção */
+        .section-content h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #000000;
+        }
+
+        /* Estilo para seções alternadas (background mais claro) */
+        .section-alt {
+            background-color: #f0decd;
+        }
+
+        /* Novas Opções: Quero Doar / Sou Instituição */
+        .options-section {
+            padding: 80px 0; /* Aumentado o padding para mais espaço */
+            background-color: #f0decd;
+        }
+
+        .options-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 50px; /* Espaço entre as duas caixas, aumentado */
+            flex-wrap: wrap; /* Permite quebrar em linha em telas menores */
+        }
+
+        .option-card {
+            background-color: #ffffff;
+            border-radius: 15px; /* Borda mais arredondada */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* Sombra mais pronunciada */
+            padding: 55px; /* Aumentado o padding para o card ficar maior */
+            text-align: center;
+            flex: 1; /* Para que ocupem espaço igual */
+            min-width: 320px; /* Largura mínima aumentada */
+            max-width: 550px; /* Largura máxima aumentada */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Alinha o botão ao final */
+        }
+
+        .option-card:hover {
+            transform: translateY(-10px); /* Efeito de levante mais acentuado */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .option-card h3 {
+            font-size: 3.0em; /* Fonte do título aumentada */
+            color: #6d8e41; /* Cor padrão para o primeiro card */
+            margin-bottom: 25px; /* Espaço aumentado */
+        }
+
+        .option-card p {
+            font-size: 1.3em; /* Fonte do parágrafo aumentada */
+            margin-bottom: 35px; /* Espaço aumentado */
+            color: #555;
+            flex-grow: 1; /* Faz o parágrafo ocupar o espaço restante */
+        }
+
+        /* Cor específica para o título do card "Sou Instituição" */
+        .option-card.institution-option h3 {
+            color: #007bff; /* Azul, mesma cor do secondary-btn */
+        }
+
+
+        /* Botões */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px; /* Padding dos botões aumentado */
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em; /* Fonte dos botões aumentada */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* Para garantir que links com classe btn também sejam estilizados */
+        }
+
+        .primary-btn {
+            background-color: #6d8e41;
+            color: #fff;
+        }
+
+        .primary-btn:hover {
+            background-color: #587435;
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            background-color: #007bff; /* Azul padrão */
+            color: #fff;
+        }
+
+        .secondary-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Lista de Instituições (Cards) */
+        
+
+        /* Ranking de Doadores */
+        .ranking-intro, .call-to-action {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .donor-list {
+            list-style: none; /* Remove marcadores de lista */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 25px 30px;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            text-align: left;
+        }
+
+        .donor-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 1.05em;
+            color: #444;
+        }
+
+        .donor-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Rodapé (Footer) */
+        footer {
+            background-color: #2c3e50; /* Azul escuro */
+            color: #ecf0f1;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .footer-contact {
+            margin-bottom: 20px;
+        }
+
+        .footer-contact h3 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #ecf0f1;
+            font-size: 1.8em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #4CAF50; /* Verde ao passar o mouse */
+        }
+
+        .prototype-message {
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            .main-nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .main-nav a {
+                padding: 10px;
+                display: block;
+            }
+
+            .hero-section {
+                padding: 60px 0;
+            }
+
+            .hero-section h2 {
+                font-size: 2em;
+            }
+
+            .section-content {
+                padding: 40px 0;
+            }
+
+            .section-content h2 {
+                font-size: 1.8em;
+            }
+
+            .options-wrapper {
+                flex-direction: column; /* Empilha as opções em telas menores */
+                gap: 30px; /* Ajuste para telas menores */
+            }
+            .option-card {
+                margin: 0 15px; /* Ajuste o margin para telas menores */
+                padding: 40px; /* Ajuste o padding para telas menores */
+                min-width: unset; /* Remove min-width para flexibilidade */
+                max-width: 100%; /* Ocupa a largura total disponível */
+            }
+            .option-card h3 {
+                font-size: 2.5em; /* Fonte do título ajustada para telas menores */
+            }
+            .option-card p {
+                font-size: 1.15em; /* Fonte do parágrafo ajustada para telas menores */
+            }
+            .btn {
+                padding: 12px 25px; /* Botões ajustados para telas menores */
+                font-size: 1.1em;
+            }
+
+
+            .institution-grid {
+                grid-template-columns: 1fr; /* Uma coluna em telas menores */
+            }
+
+            .institution-card {
+                margin: 0 10px; /* Adiciona um pequeno espaçamento lateral */
+            }
+
+            .donor-list {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-title {
+                font-size: 2.2em;
+            }
+
+            .site-subtitle {
+                font-size: 1em;
+            }
+
+            .main-nav ul {
+                gap: 5px;
+            }
+
+            .option-card {
+                padding: 30px; /* Mais ajuste para telas muito pequenas */
+            }
+            .option-card h3 {
+                font-size: 2em;
+            }
+            .option-card p {
+                font-size: 1em;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./images/image-Photoroom.png" alt="Logo Mãos Unidas" class="header-logo">
+            <h1 class="site-title">Mãos Unidas</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#ranking">Ranking</a></li>
+                    <li><a href="#contatos">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Nova Seção para as opções "Quero Doar" e "Sou Instituição" -->
+    <section id="main-options" class="options-section">
+        <div class="container">
+            <div class="options-wrapper">
+                <div class="option-card">
+                    <h3>Quero Doar</h3>
+                    <p>Encontre instituições próximas e faça doações físicas ou financeiras.</p>
+                    <a href="#instituicoes" class="btn primary-btn">Ver Instituições</a>
+                </div>
+                <div class="option-card institution-option">
+                    <h3>Sou Instituição</h3>
+                    <p>Cadastre sua ONG, igreja ou projeto social e divulgue suas necessidades.</p>
+                    <button class="btn secondary-btn">Cadastrar Instituição</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="sobre" class="hero-section">
+            <div class="container">
+                <h2>Sobre o Site</h2>
+                <p>
+                    Mãos Unidas é uma plataforma criada para facilitar o ato de doar. Aqui, qualquer pessoa pode encontrar instituições próximas que precisam de ajuda e contribuir com doações, sem a necessidade de cadastro. As instituições se cadastram para divulgar suas necessidades e receber apoio. Nosso objetivo é tornar a solidariedade mais acessível, prática e conectada.</p>
+            </div>
+        </section>
+
+        <section id="ranking" class="section-content section-alt">
+            <div class="container">
+                <h2>Ranking de Doadores</h2>
+                <p class="ranking-intro">Top doadores que fazem a diferença:</p>
+                <ol class="donor-list">
+                    <li>Doador Anônimo S.A. (Pessoa Jurídica) - 500 doações</li>
+                    <li>Maria da Silva (Pessoa Física) - 350 doações</li>
+                    <li>Empresa Boa Vontade Ltda. (Pessoa Jurídica) - 280 doações</li>
+                    <li>João Oliveira (Pessoa Física) - 200 doações</li>
+                    <li>Família Generosa (Pessoa Física) - 150 doações</li>
+                </ol>
+                <p class="call-to-action">Quer aparecer aqui? Cadastre-se como doador!</p>
+                <button class="btn primary-btn">Cadastrar como Doador</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" id="contatos">
+            <div class="footer-contact">
+                <h3>Contato</h3>
+                <p>E-mail: contato@maosunidas.com</p>
+                <p>Telefone: (11) 98765-4321 (fictício)</p>
+            </div>
+            <div class="social-links">
+                <a target="_blank" href="https://www.instagram.com/maos_unidas26/?igsh=aGo1YnZmczB5N2lj&utm_source=qr#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <p class="prototype-message">Protótipo desenvolvido com fins demonstrativos.</p>
+        </div>
+    </footer>
+</body>
+</html>
