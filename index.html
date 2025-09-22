@@ -211,8 +211,79 @@
             transform: translateY(-2px);
         }
 
-        /* Lista de Instituições (Cards) */
+        /* Estilos para o formulário de cadastro de doador */
+        #donor-registration-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: left;
+            display: none; /* Começa oculto */
+            animation: fadeIn 0.5s ease-out; /* Animação ao aparecer */
+        }
+
+        #donor-registration-form h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea, /* Adicionado para o campo de descrição */
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Garante que padding não aumente a largura total */
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 5px;
+        }
         
+        .form-actions {
+            display: flex;
+            justify-content: space-between; /* Espaçamento entre os botões */
+            margin-top: 30px;
+        }
+
+        .form-actions .btn {
+            flex-grow: 1; /* Faz os botões ocuparem o espaço disponível */
+            margin: 0 5px; /* Pequeno espaçamento entre eles */
+            padding: 12px 20px;
+            font-size: 1em;
+        }
+
+        .form-actions .btn:first-child {
+            margin-left: 0;
+        }
+
+        .form-actions .btn:last-child {
+            margin-right: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Ranking de Doadores */
         .ranking-intro, .call-to-action {
@@ -241,6 +312,71 @@
 
         .donor-list li:last-child {
             border-bottom: none;
+        }
+
+        /* Estilos do Modal para Cadastro de Instituição */
+        .modal {
+            display: none; /* Oculto por padrão */
+            position: fixed; /* Fixa o modal na tela */
+            z-index: 1000; /* Acima de outros elementos */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Adiciona scroll se o conteúdo for muito grande */
+            background-color: rgba(0,0,0,0.6); /* Fundo semi-transparente escuro */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            padding: 20px; /* Adiciona um padding para não colar nas bordas */
+            animation: fadeInModal 0.3s ease-out; /* Animação ao abrir */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto; /* Para centralização antiga, 'justify/align-items' já fazem isso */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 700px; /* Largura máxima do conteúdo do modal */
+            width: 100%; /* Ocupa toda a largura disponível até o max-width */
+            position: relative; /* Para posicionar o botão de fechar */
+            animation: slideInTop 0.4s ease-out; /* Animação ao aparecer */
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        /* Botão de fechar do modal */
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Animações para o modal */
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         /* Rodapé (Footer) */
@@ -332,17 +468,33 @@
                 font-size: 1.1em;
             }
 
-
-            .institution-grid {
-                grid-template-columns: 1fr; /* Uma coluna em telas menores */
-            }
-
-            .institution-card {
-                margin: 0 10px; /* Adiciona um pequeno espaçamento lateral */
-            }
-
             .donor-list {
                 padding: 20px;
+            }
+
+            #donor-registration-form {
+                margin: 30px 15px;
+                padding: 30px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-actions .btn {
+                margin: 0; /* Remove margens laterais quando empilhados */
+            }
+
+            .modal-content {
+                padding: 30px;
+                margin: 20px; /* Espaçamento para não colar nas bordas em mobile */
+            }
+
+            .close-button {
+                font-size: 30px;
+                top: 10px;
+                right: 20px;
             }
         }
 
@@ -372,6 +524,10 @@
                 padding: 10px 20px;
                 font-size: 1em;
             }
+
+            #donor-registration-form {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -397,12 +553,12 @@
                 <div class="option-card">
                     <h3>Quero Doar</h3>
                     <p>Encontre instituições próximas e faça doações físicas ou financeiras.</p>
-                    <a href="#instituicoes" class="btn primary-btn">Ver Instituições</a>
+                    <a href="./página 2.html" class="btn primary-btn" target="_blank">Ver Instituições</a>
                 </div>
                 <div class="option-card institution-option">
                     <h3>Sou Instituição</h3>
                     <p>Cadastre sua ONG, igreja ou projeto social e divulgue suas necessidades.</p>
-                    <button class="btn secondary-btn">Cadastrar Instituição</button>
+                    <button id="show-institution-form-btn" class="btn secondary-btn">Cadastrar Instituição</button>
                 </div>
             </div>
         </div>
@@ -417,6 +573,7 @@
             </div>
         </section>
 
+        <!-- Seção de Ranking que será oculta quando o formulário de doador aparecer -->
         <section id="ranking" class="section-content section-alt">
             <div class="container">
                 <h2>Ranking de Doadores</h2>
@@ -429,7 +586,48 @@
                     <li>Família Generosa (Pessoa Física) - 150 doações</li>
                 </ol>
                 <p class="call-to-action">Quer aparecer aqui? Cadastre-se como doador!</p>
-                <button class="btn primary-btn">Cadastrar como Doador</button>
+                <button id="show-donor-form-btn" class="btn primary-btn">Cadastrar como Doador</button>
+            </div>
+        </section>
+
+        <!-- Nova Seção para o Formulário de Cadastro de Doador (Inicialmente Oculta) -->
+        <section id="donor-registration-form" class="section-content section-alt">
+            <div class="container">
+                <h2>Cadastro de Doador</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="donor-type">Tipo de Doador:</label>
+                        <select id="donor-type" name="donor-type" required>
+                            <option value="">Selecione...</option>
+                            <option value="pf">Pessoa Física</option>
+                            <option value="pj">Pessoa Jurídica</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nome / Razão Social:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone (Opcional):</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Cidade:</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado:</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="back-to-ranking-btn" class="btn secondary-btn">Voltar</button>
+                        <button type="submit" class="btn primary-btn">Enviar Cadastro</button>
+                    </div>
+                </form>
             </div>
         </section>
     </main>
@@ -448,5 +646,104 @@
             <p class="prototype-message">Protótipo desenvolvido com fins demonstrativos.</p>
         </div>
     </footer>
+
+    <!-- Modal para Cadastro de Instituição (Sobreposto) -->
+    <div id="institution-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-institution-modal">&times;</span>
+            <h2>Cadastro de Instituição</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="institution-name">Nome da Instituição:</label>
+                    <input type="text" id="institution-name" name="institution-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-cnpj">CNPJ:</label>
+                    <input type="text" id="institution-cnpj" name="institution-cnpj" placeholder="XX.XXX.XXX/XXXX-XX" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-email">E-mail de Contato:</label>
+                    <input type="email" id="institution-email" name="institution-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-phone">Telefone de Contato:</label>
+                    <input type="tel" id="institution-phone" name="institution-phone" placeholder="(XX) XXXXX-XXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-address">Endereço:</label>
+                    <input type="text" id="institution-address" name="institution-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-city">Cidade:</label>
+                    <input type="text" id="institution-city" name="institution-city" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-state">Estado:</label>
+                    <input type="text" id="institution-state" name="institution-state" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution-description">Descrição da Instituição e Necessidades:</label>
+                    <textarea id="institution-description" name="institution-description" rows="5" placeholder="Breve descrição sobre a instituição, sua missão e as principais formas de ajuda que necessita."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">Cadastrar Instituição</button>
+                    <!-- O botão de voltar não é necessário aqui, já que o 'X' fecha o modal -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lógica para o formulário de Doador (já existente)
+            const showDonorFormBtn = document.getElementById('show-donor-form-btn');
+            const backToRankingBtn = document.getElementById('back-to-ranking-btn');
+            const rankingSection = document.getElementById('ranking');
+            const donorFormSection = document.getElementById('donor-registration-form');
+
+            if (showDonorFormBtn && backToRankingBtn && rankingSection && donorFormSection) {
+                showDonorFormBtn.addEventListener('click', function() {
+                    rankingSection.style.display = 'none'; // Oculta a seção de ranking
+                    donorFormSection.style.display = 'block'; // Mostra a seção do formulário
+                    donorFormSection.scrollIntoView({ behavior: 'smooth' }); // Rola para o formulário
+                });
+
+                backToRankingBtn.addEventListener('click', function() {
+                    donorFormSection.style.display = 'none'; // Oculta a seção do formulário
+                    rankingSection.style.display = 'block'; // Mostra a seção de ranking
+                    rankingSection.scrollIntoView({ behavior: 'smooth' }); // Rola de volta para o ranking
+                });
+            } else {
+                console.error("Um ou mais elementos do formulário de doador não foram encontrados. Verifique os IDs.");
+            }
+
+            // NOVA Lógica para o Modal de Instituição
+            const showInstitutionFormBtn = document.getElementById('show-institution-form-btn');
+            const institutionModal = document.getElementById('institution-modal');
+            const closeInstitutionModalBtn = document.getElementById('close-institution-modal');
+
+            if (showInstitutionFormBtn && institutionModal && closeInstitutionModalBtn) {
+                showInstitutionFormBtn.addEventListener('click', function() {
+                    institutionModal.style.display = 'flex'; // Altera para flex para centralizar
+                    document.body.style.overflow = 'hidden'; // Impede o scroll do corpo da página
+                });
+
+                closeInstitutionModalBtn.addEventListener('click', function() {
+                    institutionModal.style.display = 'none'; // Oculta o modal
+                    document.body.style.overflow = ''; // Restaura o scroll do corpo da página
+                });
+
+                // Fechar o modal clicando fora do conteúdo
+                window.addEventListener('click', function(event) {
+                    if (event.target == institutionModal) {
+                        institutionModal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+            } else {
+                console.error("Um ou mais elementos do modal da instituição não foram encontrados. Verifique os IDs.");
+            }
+        });
+    </script>
 </body>
 </html>
